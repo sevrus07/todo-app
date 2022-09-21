@@ -1,0 +1,21 @@
+body{
+  background-color: seagreen;
+}
+.Nav {
+  display: block;
+  margin: 1rem 1rem;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #71df56;
+}
+.links {
+  display: inline-block;
+  /* text-decoration: none;
+  background-color: red;
+  color: antiquewhite; */
+  
+}
+a{
+  text-decoration: none;
+}
