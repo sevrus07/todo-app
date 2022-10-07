@@ -1,9 +1,5 @@
 import { useState } from 'react';
-
-
-import TodoItem from './components/TodoItem';
-import TodoForm from './components/TodoForm';
-
+import { useNavigate } from 'react-router';
 import { Routes, Route, Link } from 'react-router-dom';
 
 
@@ -12,6 +8,8 @@ import TaskPage from './components/TaskPage';
 import './App.css';
 
 const App = () => {
+  const navigate = useNavigate();
+
   const initialValue = [
     { name: "Eat", status: "done" },
     { name: "Take a bath", status: "Pending" },
@@ -36,9 +34,6 @@ const App = () => {
 
   const OnDeleteFunction = ( name ) => {
     alert(`To delete : ${name}`);
-    const index = todos.findIndex( todo => todo.name === name );
-    const currentTodo = todos.slice(0);
-    todos.splice( index, 1 );
     setTodo( todos.filter( todo => todo.name !== name) );
     
 
@@ -46,9 +41,9 @@ const App = () => {
   }
   const MarkAsDoneFunction = ( name, status ) => {
     const index = todos.findIndex( todo => todo.name === name );
-    const currentTodo = todos.slice(0);
-    todos.splice( index, 1 );
-    setTodo( todos.filter( todo => todo.status === 'done') );
+    todos[index].status = 'done';
+    alert(`Marked as done : ${name}`);
+    navigate('/done');
     
 
 
@@ -66,9 +61,7 @@ const App = () => {
         </nav>
         
         <Routes>
-          <Route path='/' element={ 
-          todos.map( todo => <TodoItem name={ todo.name } status={ todo.status } deleteFunction={OnDeleteFunction} MarkAsDoneFtn={MarkAsDoneFunction}/> )
-        } /> 
+          <Route path='/' element={ <h1>Home page</h1> } /> 
           <Route path='/:status' element={ <TaskPage todoItems={ todos } deleteFunction={OnDeleteFunction} MarkAsDoneFtn={MarkAsDoneFunction} />  } />
           <Route path='/add' element={ <AddTaskPage addItemFunction={addTodoItem} /> } />
         </Routes>
